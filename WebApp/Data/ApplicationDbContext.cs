@@ -1,17 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using WebApp.Models;
 
 namespace WebApp.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions options) : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
         {
         }
 
-        protected ApplicationDbContext()
-        {
-        }
-
-        public DbSet<Cateroy> Cateroys { get; set; }
+        public DbSet<Item> Items { get; set; }
     }
 }

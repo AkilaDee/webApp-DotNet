@@ -1,8 +1,18 @@
+using Microsoft.EntityFrameworkCore;
+using WebApp.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseMySql(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))
+    )
+);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
