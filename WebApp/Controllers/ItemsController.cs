@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 using WebApp.Data;
 using WebApp.Models;
 
@@ -20,10 +21,20 @@ namespace WebApp.Controllers
             return View(items);
         }
 
-        public IActionResult create()
+        public IActionResult Create()
         {
             return View();
         }
-        
+        [HttpPost]
+        public async Task<IActionResult> Create([Bind("Id", "Name", "Price")] Item item)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Items.Add(item);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View(item);
+        }
     }
 }
