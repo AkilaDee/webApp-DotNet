@@ -1,4 +1,11 @@
 ﻿@model WebApp.Models.Item
 @{
+
+    var items = new List<String> { "Item1", "Item2", "Item3", "Item3" };
 }
-<p> This is the name for item @Model.Name</p>
+<ul>
+    @foreach (var item in items)
+    {
+        <li>@item</li>
+    }
+</ul>
